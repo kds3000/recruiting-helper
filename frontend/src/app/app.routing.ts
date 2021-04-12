@@ -1,10 +1,18 @@
 import {Routes} from '@angular/router';
-import {VacancyListComponent} from './admin/vacancies/vacancy-list/vacancy-list.component';
 
 export const rootRouterConfig: Routes = [
   {
     path: '',
-    component: VacancyListComponent,
+    redirectTo: 'admin',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+      }
+    ]
+  },
 ];

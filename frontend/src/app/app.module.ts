@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import {RouterModule} from '@angular/router';
 import {rootRouterConfig} from './app.routing';
 import {HttpClientModule} from '@angular/common/http';
-import {AdminModule} from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import {AdminModule} from './admin/admin.module';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(rootRouterConfig),
-    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]
