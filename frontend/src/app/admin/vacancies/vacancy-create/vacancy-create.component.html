@@ -1,0 +1,12 @@
+<div [formGroup]="vacancyForm">
+  <div>
+    <label>Name: <input id="name" formControlName="name"></label>
+    <div *ngIf="vacancyForm.controls.name.errors?.required">
+      Name is required.
+    </div>
+    <div *ngIf="vacancyForm.controls.name.errors?.minlength">
+      Name must be at least 5 characters long.
+    </div>
+  </div>
+  <div><button type="submit" (click)="createVacancy()" [disabled]="!vacancyForm.valid">Submit</button></div>
+</div>
