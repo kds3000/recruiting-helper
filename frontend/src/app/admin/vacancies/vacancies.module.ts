@@ -6,6 +6,11 @@ import {vacanciesRoutes} from './vacancies.routing';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { VacancyCreateComponent } from './vacancy-create/vacancy-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -18,7 +23,12 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule.forChild(vacanciesRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
   ]

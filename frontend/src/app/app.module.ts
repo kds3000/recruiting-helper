@@ -9,6 +9,7 @@ import {StoreModule} from '@ngrx/store';
 import {vacanciesReducer} from './ngrx-store/reducers/vacancies.reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {VacanciesEffects} from './ngrx-store/effects/vacancies.effects';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {VacanciesEffects} from './ngrx-store/effects/vacancies.effects';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(rootRouterConfig),
     StoreModule.forRoot({vacancies: vacanciesReducer}),
