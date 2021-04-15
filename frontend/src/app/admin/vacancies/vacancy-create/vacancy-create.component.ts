@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../../shared/services/api.service';
 import {Router} from '@angular/router';
-import {VacanciesPaths} from '../vacancies-paths.enum';
+import {AppState} from '../../../ngrx-store';
+import {Store} from '@ngrx/store';
+import {addVacancy} from '../../../ngrx-store/actions/vacancies.actions';
 
 @Component({
   selector: 'app-vacancy-create',
@@ -16,7 +18,8 @@ export class VacancyCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
@@ -26,9 +29,7 @@ export class VacancyCreateComponent implements OnInit {
   }
 
   createVacancy(): void {
-    this.apiService.createVacancy(this.vacancyForm.value).subscribe(
-      () => this.router.navigateByUrl(VacanciesPaths.list)
-    );
+    this.store.dispatch(addVacancy({vacancyData: this.vacancyForm.value}));
   }
 
 }

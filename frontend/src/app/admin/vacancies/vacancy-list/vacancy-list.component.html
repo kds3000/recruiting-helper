@@ -1,2 +1,2 @@
-<div *ngFor="let vacancy of vacancies">{{vacancy.name}}</div>
+<div *ngFor="let vacancy of vacancies$ | async">{{vacancy.name}}</div>
 <div><button [routerLink]=vacanciesPaths.create>Create</button></div>

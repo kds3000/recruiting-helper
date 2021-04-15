@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from '../../../shared/services/api.service';
+import {VacanciesPaths} from '../../../shared/enums/paths/vacancies-paths.enum';
+import {Store} from '@ngrx/store';
+import {loadVacancies} from '../../../ngrx-store/actions/vacancies.actions';
+import {Observable} from 'rxjs';
 import {Vacancy} from '../../../shared/models/vacancy.model';
-import {VacanciesPaths} from '../vacancies-paths.enum';
+import {selectAllVacancies} from '../../../ngrx-store';
 
 @Component({
   selector: 'app-vacancy-list',
@@ -10,17 +13,17 @@ import {VacanciesPaths} from '../vacancies-paths.enum';
 })
 export class VacancyListComponent implements OnInit {
 
-  readonly vacanciesPaths: typeof VacanciesPaths = VacanciesPaths ;
-  public vacancies: Vacancy[];
+  readonly vacanciesPaths: typeof VacanciesPaths = VacanciesPaths;
+  public vacancies$: Observable<Vacancy[]>;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private store: Store
+  ) {
+    this.vacancies$ = this.store.select(selectAllVacancies);
+  }
 
   ngOnInit(): void {
-    this.apiService.getVacancies().subscribe(
-      vacancies => {
-        this.vacancies = vacancies;
-      }
-    );
+    this.store.dispatch(loadVacancies());
   }
 
 }
