@@ -4,7 +4,7 @@ import {ApiService} from '../../../shared/services/api.service';
 import {Router} from '@angular/router';
 import {AppState} from '../../../ngrx-store';
 import {Store} from '@ngrx/store';
-import {AddVacancy} from '../../../ngrx-store/actions/vacancies.actions';
+import {addVacancy} from '../../../ngrx-store/actions/vacancies.actions';
 
 @Component({
   selector: 'app-vacancy-create',
@@ -29,7 +29,7 @@ export class VacancyCreateComponent implements OnInit {
   }
 
   createVacancy(): void {
-    this.store.dispatch(new AddVacancy(this.vacancyForm.value));
+    this.store.dispatch(addVacancy({vacancyData: this.vacancyForm.value}));
   }
 
 }

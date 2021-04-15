@@ -1,5 +1,6 @@
 import {Vacancy} from '../../shared/models/vacancy.model';
 import * as VacanciesActions from './../actions/vacancies.actions';
+import { Action, createReducer, on } from '@ngrx/store';
 
 export interface VacanciesState {
   vacancies: Vacancy[];
@@ -13,46 +14,38 @@ const initialState: VacanciesState = {
   error: null
 };
 
-export function vacanciesReducer(
-  state: VacanciesState = initialState,
-  action: VacanciesActions.VacanciesActions
-): VacanciesState {
-  switch (action.type) {
-    case VacanciesActions.LOAD_VACANCIES:
-      return {
-        ...state,
-        loading: true
-      };
-    case VacanciesActions.LOAD_VACANCIES_SUCCESS:
-      return {
-        ...state,
-        vacancies: action.payload,
-        loading: false
-      };
-    case VacanciesActions.LOAD_VACANCIES_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        loading: false
-      };
-    case VacanciesActions.ADD_VACANCY:
-      return {
-        ...state,
-        loading: true
-      };
-    case VacanciesActions.ADD_VACANCY_SUCCESS:
-      return {
-        ...state,
-        vacancies: [...state.vacancies, action.payload],
-        loading: false
-      };
-    case VacanciesActions.ADD_VACANCY_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload
-      };
-    default:
-      return state;
-  }
+const reducer = createReducer(
+  initialState,
+  on(VacanciesActions.loadVacancies, state => ({
+    ...state,
+    loading: true
+  })),
+  on(VacanciesActions.loadVacanciesSuccess, (state, {vacancies}) => ({
+    ...state,
+    vacancies,
+    loading: false
+  })),
+  on(VacanciesActions.loadVacanciesFailure, (state, {error}) => ({
+    ...state,
+    error,
+    loading: false
+  })),
+  on(VacanciesActions.addVacancy, state => ({
+    ...state,
+    loading: true
+  })),
+  on(VacanciesActions.addVacancySuccess, (state, {vacancy}) => ({
+    ...state,
+    vacancies: [...state.vacancies, vacancy],
+    loading: false
+  })),
+  on(VacanciesActions.addVacancyFailure, (state, {error}) => ({
+    ...state,
+    loading: false,
+    error
+  })),
+);
+
+export function vacanciesReducer(state: VacanciesState | undefined, action: Action): VacanciesState {
+  return reducer(state, action);
 }

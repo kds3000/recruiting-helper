@@ -1,57 +1,28 @@
-import {Action} from '@ngrx/store';
 import {Vacancy, VacancyData} from '../../shared/models/vacancy.model';
+import { createAction, props } from '@ngrx/store';
 
-export const LOAD_VACANCIES = '[Vacancies] Load Vacancies';
-export const LOAD_VACANCIES_SUCCESS = '[Vacancies] Load Vacancies Success';
-export const LOAD_VACANCIES_FAILURE = '[Vacancies] Load Vacancies Failure';
 
-export const ADD_VACANCY = '[Vacancies] Add Vacancy';
-export const ADD_VACANCY_SUCCESS = '[Vacancies] Add Vacancy Success';
-export const ADD_VACANCY_FAILURE = '[Vacancies] Add Vacancy Failure';
+export const loadVacancies = createAction(
+  '[Vacancies] Load Vacancies'
+);
+export const loadVacanciesSuccess = createAction(
+  '[Vacancies] Load Vacancies Success',
+  props<{vacancies: Vacancy[]}>()
+);
+export const loadVacanciesFailure = createAction(
+  '[Vacancies] Load Vacancies Failure',
+  props<{error: Error}>()
+);
 
-export class LoadVacancies implements Action {
-  readonly type = LOAD_VACANCIES;
-}
-
-export class LoadVacanciesSuccess implements Action {
-  readonly type = LOAD_VACANCIES_SUCCESS;
-
-  constructor(public payload: Vacancy[]) {
-  }
-}
-
-export class LoadVacanciesFailure implements Action {
-  readonly type = LOAD_VACANCIES_FAILURE;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export class AddVacancy implements Action {
-  readonly type = ADD_VACANCY;
-
-  constructor(public payload: VacancyData) {
-  }
-}
-
-export class AddVacancySuccess implements Action {
-  readonly type = ADD_VACANCY_SUCCESS;
-
-  constructor(public payload: Vacancy) {
-  }
-}
-
-export class AddVacancyFailure implements Action {
-  readonly type = ADD_VACANCY_FAILURE;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export type VacanciesActions =
-  | AddVacancy
-  | AddVacancySuccess
-  | AddVacancyFailure
-  | LoadVacancies
-  | LoadVacanciesSuccess
-  | LoadVacanciesFailure;
+export const addVacancy = createAction(
+  '[Vacancies] Add Vacancy',
+  props<{vacancyData: VacancyData}>()
+);
+export const addVacancySuccess = createAction(
+  '[Vacancies] Add Vacancy Success',
+  props<{vacancy: Vacancy}>()
+);
+export const addVacancyFailure = createAction(
+  '[Vacancies] Add Vacancy Failure',
+  props<{error: Error}>()
+);
