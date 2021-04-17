@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+  <span>Recruiting helper</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-icon-button aria-label="Settings">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Logout">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side">
+    <mat-nav-list>
+      <mat-list-item [routerLink]=vacanciesPaths.list>Vacancies</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

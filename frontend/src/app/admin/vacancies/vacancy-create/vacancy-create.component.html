@@ -1,15 +1,25 @@
-<form [formGroup]="vacancyForm">
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <!--suppress HtmlFormInputWithoutLabel -->
-    <input matInput formControlName="name">
-    <mat-error *ngIf="vacancyForm.controls.name.errors?.required">
-      Name is required.
-    </mat-error>
-    <mat-error *ngIf="vacancyForm.controls.name.errors?.minlength">
-      Name must be at least 5 characters long.
-    </mat-error>
-  </mat-form-field>
-  <br/>
-  <button mat-button type="submit" (click)="createVacancy()" [disabled]="!vacancyForm.valid">Create</button>
-</form>
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar>
+      <button mat-icon-button aria-label="Back" [routerLink]=vacanciesPaths.list>
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span>Create new vacancy</span>
+    </mat-toolbar>
+    <form [formGroup]="vacancyForm">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <!--suppress HtmlFormInputWithoutLabel -->
+        <input matInput formControlName="name">
+        <mat-error *ngIf="vacancyForm.controls.name.errors?.required">
+          Name is required.
+        </mat-error>
+        <mat-error *ngIf="vacancyForm.controls.name.errors?.minlength">
+          Name must be at least 5 characters long.
+        </mat-error>
+      </mat-form-field>
+      <br/>
+      <button mat-raised-button type="submit" (click)="createVacancy()" [disabled]="!vacancyForm.valid">Create</button>
+    </form>
+  </mat-card-content>
+</mat-card>

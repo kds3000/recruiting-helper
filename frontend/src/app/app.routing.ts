@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import {AdminLayoutComponent} from './admin/admin-layout/admin-layout.component';
 
 export const rootRouterConfig: Routes = [
   {
@@ -8,6 +9,7 @@ export const rootRouterConfig: Routes = [
   },
   {
     path: 'admin',
+    component: AdminLayoutComponent,
     children: [
       {
         path: '',
