@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AppState} from '../../../ngrx-store';
 import {Store} from '@ngrx/store';
 import {addVacancy} from '../../../ngrx-store/actions/vacancies.actions';
+import {VacanciesPaths} from '../../../shared/enums/paths/vacancies-paths.enum';
 
 @Component({
   selector: 'app-vacancy-create',
@@ -13,6 +14,7 @@ import {addVacancy} from '../../../ngrx-store/actions/vacancies.actions';
 })
 export class VacancyCreateComponent implements OnInit {
 
+  readonly vacanciesPaths: typeof VacanciesPaths = VacanciesPaths;
   public vacancyForm: FormGroup;
 
   constructor(
