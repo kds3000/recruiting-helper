@@ -1,13 +1,17 @@
-import { createSelector } from '@ngrx/store';
-import {VacanciesState} from './reducers/vacancies.reducers';
+import { createSelector, createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import * as fromVacancies from './reducers/vacancies.reducers';
 
 export interface AppState {
-  vacancies: VacanciesState;
+  vacancies: fromVacancies.VacanciesState;
 }
 
-export const selectVacancies = (state: AppState) => state.vacancies;
+export const reducers: ActionReducerMap<AppState> = {
+  vacancies: fromVacancies.vacanciesReducer,
+};
+
+export const selectVacanciesState = createFeatureSelector<fromVacancies.VacanciesState>('vacancies');
 
 export const selectAllVacancies = createSelector(
-  selectVacancies,
-  (state: VacanciesState) => state.vacancies
+  selectVacanciesState,
+  fromVacancies.selectAllVacancies
 );

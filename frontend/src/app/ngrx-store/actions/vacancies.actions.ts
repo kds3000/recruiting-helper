@@ -2,6 +2,11 @@ import {Vacancy, VacancyData} from '../../shared/models/vacancy.model';
 import { createAction, props } from '@ngrx/store';
 
 
+export const selectVacancy = createAction(
+  '[Vacancies] Select Vacancy',
+  props<{userId: number}>()
+);
+
 export const loadVacancies = createAction(
   '[Vacancies] Load Vacancies'
 );

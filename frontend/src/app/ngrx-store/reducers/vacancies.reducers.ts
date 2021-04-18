@@ -1,18 +1,21 @@
 import {Vacancy} from '../../shared/models/vacancy.model';
 import * as VacanciesActions from './../actions/vacancies.actions';
 import { Action, createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export interface VacanciesState {
-  vacancies: Vacancy[];
+export interface VacanciesState extends EntityState<Vacancy> {
   loading: boolean;
   error: Error;
+  selectedVacancyId: number;
 }
 
-const initialState: VacanciesState = {
-  vacancies: [],
+export const vacanciesAdapter: EntityAdapter<Vacancy> = createEntityAdapter<Vacancy>();
+
+const initialState: VacanciesState = vacanciesAdapter.getInitialState({
   loading: false,
-  error: null
-};
+  error: null,
+  selectedVacancyId: null
+});
 
 const reducer = createReducer(
   initialState,
@@ -20,11 +23,9 @@ const reducer = createReducer(
     ...state,
     loading: true
   })),
-  on(VacanciesActions.loadVacanciesSuccess, (state, {vacancies}) => ({
-    ...state,
-    vacancies,
-    loading: false
-  })),
+  on(VacanciesActions.loadVacanciesSuccess, (state, {vacancies}) => {
+    return vacanciesAdapter.setAll(vacancies, {...state, loading: false});
+  }),
   on(VacanciesActions.loadVacanciesFailure, (state, {error}) => ({
     ...state,
     error,
@@ -34,11 +35,9 @@ const reducer = createReducer(
     ...state,
     loading: true
   })),
-  on(VacanciesActions.addVacancySuccess, (state, {vacancy}) => ({
-    ...state,
-    vacancies: [...state.vacancies, vacancy],
-    loading: false
-  })),
+  on(VacanciesActions.addVacancySuccess, (state, {vacancy}) => {
+    return vacanciesAdapter.addOne(vacancy, {...state, loading: false});
+  }),
   on(VacanciesActions.addVacancyFailure, (state, {error}) => ({
     ...state,
     loading: false,
@@ -49,3 +48,15 @@ const reducer = createReducer(
 export function vacanciesReducer(state: VacanciesState | undefined, action: Action): VacanciesState {
   return reducer(state, action);
 }
+
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = vacanciesAdapter.getSelectors();
+
+export const selectVacancyIds = selectIds;
+export const selectVacancyEntities = selectEntities;
+export const selectAllVacancies = selectAll;
+export const selectVacancyTotal = selectTotal;
